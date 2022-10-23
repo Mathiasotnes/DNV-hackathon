@@ -15,7 +15,7 @@ import numpy as np
 print("Loading Norway…")
 start_time = time.time()
 
-coast_gdf = gpd.read_file("NOR_SHP/Norway_coast_cropped.shp")#.to_crs('EPSG:4326')
+coast_gdf = gpd.read_file("/Users/theodor/Desktop/DNV-hackathon/NOR_SHP/Norway_coast_cropped.shp")#.to_crs('EPSG:4326')
 coast_gdf = coast_gdf.clip_by_rect(xmin=10.43, ymin=59.37, xmax=10.7, ymax=59.46)
 fig = plt.figure()
 coast_ax = fig.add_subplot(autoscale_on=False, xlim=(10.43, 10.7), ylim=(59.37, 59.46))
@@ -53,13 +53,13 @@ PASSENGER_SHIP_TYPES = [
 
 # Load CSV
 print("\nLOADING CSV…")
-map_df = pd.read_csv("RESAMPLED_ais_202208_bastovi.csv", sep=",")
+map_df = pd.read_csv("/Users/theodor/Desktop/DNV-hackathon/RESAMPLED_ais_202208_bastovi.csv", sep=",")
 print("FINISHED LOADING CSV")
 
 # Anomaly
 print("\nLoading anomaly CSV")
 # anomalies_df = pd.read_csv("anomalies_lat_lon_7d.csv")
-anomalies_df = pd.read_csv("anomalies_resamples_lat_lon.csv")
+anomalies_df = pd.read_csv("/Users/theodor/Desktop/DNV-hackathon/anomaly_detection/anomalies_202208/anomalies_resampled_lat_lon_1month.csv")
 print("Finished loading anomaly CSV")
 
 print("\nUpdating anomaly timestamp")
@@ -117,36 +117,6 @@ for i in range(map_df.first_valid_index(), map_df.first_valid_index()+len(map_df
         if (collision):
             map_df.at[i, 'collision'] = True
             nr_collisions += 1
-    # poly = map_df.polygon
-    # print(poly[i])
-    # print(polygon)
-    # quit()
-
-    # # Get current values
-    # current = geopy.Point((map_df.lon)[i], (map_df.lat)[0])
-    # v = (map_df.sog)[i]
-    # th = (map_df.true_heading)[i]
-    # dist_object = geopy.distance.geodesic(kilometers = 0.001 * LOOKAHEAD_TIME * v / KNOTS_CONVERSION_FACTOR)
-    # next_point_mid = dist_object.destination(point=current, bearing=90-th)
-    # next_point_up = dist_object.destination(point=current, bearing=97.5-th)
-    # next_point_down = dist_object.destination(point=current, bearing=82.5-th)
-
-    # # dotp.set_data(current.latitude, current.longitude)
-    # # dotu.set_data(next_point_up.latitude, next_point_up.longitude)
-    # # dotm.set_data(next_point_mid.latitude, next_point_mid.longitude)
-    # # dotd.set_data(next_point_down.latitude, next_point_down.longitude)
-
-    # a = geom.Point(current.latitude, current.longitude)
-    # b = geom.Point(next_point_up.latitude, next_point_up.longitude)
-    # c = geom.Point(next_point_mid.latitude, next_point_mid.longitude)
-    # d = geom.Point(next_point_down.latitude, next_point_down.longitude)
-    # poly = geom.Polygon([a, b, c, d])
-    # intersection = coast_gdf.intersects(poly)
-    # # print(intersection)
-    # if (intersection.bool()):
-    #     print('Collision found')
-    #     map_df.at[i, 'collision'] = True
-    # print(intersection.bool())
 print("All collisions found")
 # print('Number of collisions found: ' + str(nr_collisions))
 # quit()
@@ -184,7 +154,7 @@ anomaly_collision_history_x, anomaly_collision_history_y = deque(maxlen=len(map_
 # For visualization
 def animate(i):
     index = i + map_df.first_valid_index()
-    if index == 0:
+    if index == map_df.first_valid_index():
         anomaly_history_x.clear()
         anomaly_history_y.clear()
         history_x.clear()
@@ -193,8 +163,6 @@ def animate(i):
         anomaly_collision_history_y.clear()
     history_x.appendleft(map_df.at[index, 'lon'])
     history_y.appendleft(map_df.at[index, 'lat'])
-    # history_x.appendleft(x[index])
-    # history_y.appendleft(y[index])
 
     # Visualise sector
     current = geopy.Point(history_x[0], history_y[0])
@@ -218,6 +186,6 @@ def animate(i):
     return trace, anomaly_trace, anomaly_collision_trace, time_text, dotp, poly
 
 
-ani = animation.FuncAnimation(fig, animate, frames=1000, interval=1, blit=True)
+ani = animation.FuncAnimation(fig, animate, frames=len(map_df), interval=1, blit=True)
 # ani.save('/tmp/resampled_animation.gif', writer='imagemagick', fps=30)
-# plt.show()
+plt.show()

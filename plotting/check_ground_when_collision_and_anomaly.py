@@ -15,7 +15,7 @@ import numpy as np
 print("Loading Norway…")
 start_time = time.time()
 
-coast_gdf = gpd.read_file("NOR_SHP/Norway_coast_cropped.shp")#.to_crs('EPSG:4326')
+coast_gdf = gpd.read_file("/Users/theodor/Desktop/DNV-hackathon/NOR_SHP/Norway_coast_cropped.shp")#.to_crs('EPSG:4326')
 coast_gdf = coast_gdf.clip_by_rect(xmin=10.43, ymin=59.37, xmax=10.7, ymax=59.46)
 fig = plt.figure()
 coast_ax = fig.add_subplot(autoscale_on=False, xlim=(10.43, 10.7), ylim=(59.37, 59.46))
@@ -53,13 +53,13 @@ PASSENGER_SHIP_TYPES = [
 
 # Load CSV
 print("\nLOADING CSV…")
-map_df = pd.read_csv("RESAMPLED_ais_202208_bastovi.csv", sep=",")
+map_df = pd.read_csv("/Users/theodor/Desktop/DNV-hackathon/RESAMPLED_ais_202208_bastovi.csv", sep=",")
 print("FINISHED LOADING CSV")
 
 # Anomaly
 print("\nLoading anomaly CSV")
 # anomalies_df = pd.read_csv("anomalies_lat_lon_7d.csv")
-anomalies_df = pd.read_csv("anomalies_resampled_lat_lon_1month.csv")
+anomalies_df = pd.read_csv("/Users/theodor/Desktop/DNV-hackathon/anomaly_detection/anomalies_202208/anomalies_bastoVI_day1.csv")
 print("Finished loading anomaly CSV")
 
 print("\nUpdating anomaly timestamp")

@@ -15,10 +15,11 @@ General Workflow:
 
 Spesific Script Workflow:
 
+Azure anomaly detection - coming soon™ 
 
 Plotting files:
 
-In /candidate_analysis/candidates_analisys.py is used to load in AISyRisk candidates to quickly filter out desired ferries, dates, and candidate properties and get simple plots and statistics.
+- /candidate_analysis/candidates_analisys.py - is used to load in AISyRisk candidates to quickly filter out desired ferries, dates, and candidate properties and get simple plots and statistics.
 
 All plotting files in plotting/ are used for combining data from anonaly detection and AISyRISK candidates data and plot them. File names should be descriptive, but slight further insight for each is given here:
 

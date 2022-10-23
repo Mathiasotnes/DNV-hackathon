@@ -15,7 +15,7 @@ General Workflow:
 
 Spesific Script Workflow:
 
-Azure anomaly detection - coming soon™ 
+anomaly_detection/ - description coming soon™ 
 
 Plotting files:
 

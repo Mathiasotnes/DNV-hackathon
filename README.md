@@ -1,6 +1,7 @@
 # DNV-hackathon
 ⛵💥🛥️
-Methods of reducing false positive collision candidates detection of ferrys in norway for risk analysis of the marine traffic in norway (AISyRISK).
+
+Method of reducing false positive collision candidates detection of ferrys in norway for risk analysis of the marine traffic in norway (AISyRISK), using Azure anomaly detection.
 
 https://github.com/MicrosoftLearning/AI-900-AIFundamentals
 
